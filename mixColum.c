@@ -2,7 +2,10 @@
 // Created by tomfr on 16/09/2023.
 //
 #include "mixColum.h"
-#include "CorpsFini.h"
+/** @brief function mixColums do the mixColums algorithm
+ *  @param dim size of Matrix
+ *  @param chiffre Matrix which represent ciphered text
+ **/
 void mixColumns(int dim,unsigned char chiffre[dim][dim]){
     unsigned char copy[4];
     for(int i=0;i<dim;i++){
@@ -15,6 +18,9 @@ void mixColumns(int dim,unsigned char chiffre[dim][dim]){
         }
     }
 }
+/** @brief function mixColumn do all mathematical operations on finished body on the column
+ *  @param column column of the Matrix 4x4
+ **/
 void mixColumn(unsigned char column[]){
     unsigned char mult2[256] ={0x00,0x02,0x04,0x06,0x08,0x0a,0x0c,0x0e,0x10,0x12,0x14,0x16,0x18,0x1a,0x1c,0x1e,
                      0x20,0x22,0x24,0x26,0x28,0x2a,0x2c,0x2e,0x30,0x32,0x34,0x36,0x38,0x3a,0x3c,0x3e,
@@ -62,6 +68,10 @@ void mixColumn(unsigned char column[]){
 
     column[3] = mult2[cpy[3]] ^cpy[2] ^ cpy[1] ^ mult3[cpy[0]];
 }
+/** @brief Function invMixColums do the inverse of function mixColums
+ *  @param dim size of Matrix
+ *  @param chiffre Matrix which represent ciphered text
+ **/
 void invMixColumns(int dim,unsigned char chiffre[dim][dim]){
     unsigned char copy[4];
     for(int i=0;i<dim;i++){
@@ -74,6 +84,9 @@ void invMixColumns(int dim,unsigned char chiffre[dim][dim]){
         }
     }
 }
+/** @brief function invMixColumn do the inverse of function mixColumn
+ *  @param column column of the Matrix 4x4
+ **/
 void invMixColumn(unsigned char column[]){
     unsigned char mult9[256]={0x00,0x09,0x12,0x1b,0x24,0x2d,0x36,0x3f,0x48,0x41,0x5a,0x53,0x6c,0x65,0x7e,0x77,
                     0x90,0x99,0x82,0x8b,0xb4,0xbd,0xa6,0xaf,0xd8,0xd1,0xca,0xc3,0xfc,0xf5,0xee,0xe7,

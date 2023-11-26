@@ -2,6 +2,9 @@
 // Created by tomfr on 15/09/2023.
 //
 #include "keySchedule.h"
+/** @brief function rotWord shift elements present on a column of the matrix
+ *  @param vect column of 4x4 Matrix represent as a vector
+ **/
 void rotWord(unsigned char vect[]){
     unsigned char recup= vect[0];
     vect[0]=vect[1];
@@ -9,6 +12,9 @@ void rotWord(unsigned char vect[]){
     vect[2]=vect[3];
     vect[3]=recup;
 }
+/** @brief function subWord will subsituate elements present on a column of the matrix
+ * @param vect column of 4x4 Matrix represent as a vector
+ **/
 void subWord(unsigned char vect[]){
     unsigned char index;
     unsigned char sBox[256]={0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
@@ -33,6 +39,11 @@ void subWord(unsigned char vect[]){
     }
 
 }
+/** @brief function keySche create keyschedule and 10 RoundKey
+ *  @param dim size of Matrix
+ *  @param K Matrix which contain the key
+ *  @param R1-R10 Round Key 1 to 10 ( each a 4x4 Matrix)
+ **/
 void keySche(int dim,unsigned char K[dim][dim],unsigned char R1[dim][dim],unsigned char R2[dim][dim],unsigned char R3[dim][dim],unsigned char R4[dim][dim],unsigned char R5[dim][dim],unsigned char R6[dim][dim],unsigned char R7[dim][dim],unsigned char R8[dim][dim],unsigned char R9[dim][dim],unsigned char R10[dim][dim]){
     unsigned char tabKeySche[4][44]={0};
     int rotConIndex=0,interColIndex=5;
@@ -57,6 +68,12 @@ void keySche(int dim,unsigned char K[dim][dim],unsigned char R1[dim][dim],unsign
         }
     }
 }
+/** @brief function getInterCol calculate elements on other column than first of the roundKey
+ *  @param dim1 number of line of tabKeySch Matrix
+ *  @param dim2 number of column of tabKeySch Matrix
+ *  @param tabKeySch Matrix which represent the entire KeySchedule
+ *  @param index Pointer to update the position on the Matrix
+ **/
 void getInterCol(int dim1,int dim2,unsigned char tabKeySch[dim1][dim2],int *index){
     for(int i=0;i<3;i++){
         for(int j=0;j<dim1;j++){
@@ -66,6 +83,13 @@ void getInterCol(int dim1,int dim2,unsigned char tabKeySch[dim1][dim2],int *inde
     }
     *index+=1;
 }
+/** @brief function getFirstCol calculate elements on the first column of the roundKey
+ *  @param index Pointer to update the position on the Matrix
+ *  @param dim1 number of line of tabKeySch Matrix
+ *  @param dim2 number of column of tabKeySch Matrix
+ *  @param rotCon vector used to calculate first element
+ *  @param tabKeySch Matrix which represent the entire KeySchedule
+ **/
 void getFirstCol(int *index,int dim1,int dim2,const unsigned char rotCon[],unsigned char tabKeySch[dim1][dim2]){
     int targetIndex=*index * 4 + 4;
     int rotConIndex=targetIndex-1;
@@ -88,6 +112,12 @@ void getFirstCol(int *index,int dim1,int dim2,const unsigned char rotCon[],unsig
     }
     *index+=1;
 }
+/** @brief function initKeySche copy the key in the keySchedule
+ *  @param dim1 number of line of tabKeySch Matrix
+ *  @param dim2 number of column of tabKeySch Matrix
+ *  @param tabKeySch Matrix which represent the entire KeySchedule
+ *  @param K Matrix which contain the key
+ **/
 void initKeySche(int dim1,int dim2,unsigned char tabKeySche[dim1][dim2],unsigned char K[dim1][dim1]){
     for(int i=0;i<dim1;i++){
         for(int j=0;j<dim1;j++){
@@ -95,6 +125,11 @@ void initKeySche(int dim1,int dim2,unsigned char tabKeySche[dim1][dim2],unsigned
         }
     }
 }
+/** @brief function addRoundkey add the round key on the text which would be ciphered
+ *  @param dim dimension of text Matrix
+ *  @param chiffre Matrix which represent the ciphered text
+ *  @param roundKey matrix which represent the roundKey added
+ **/
 void addRoundkey(int dim,unsigned char chiffre[dim][dim],unsigned char roundKey[dim][dim]){
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {

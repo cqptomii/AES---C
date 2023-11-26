@@ -6,6 +6,11 @@
 #include "ShiftRows.h"
 #include "Subbyte.h"
 #include "mixColum.h"
+/** @brief function cipher which encrypt the data by using AES-128 algorithm
+ ** @param dim size of Matrix
+ *  @param key Matrix which contain the key
+ *  @param text Matrix which contain clear data
+ **/
 void cipher(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
     unsigned char R1[4][4],R2[4][4],R3[4][4],R4[4][4],R5[4][4],R6[4][4],R7[4][4],R8[4][4],R9[4][4],R10[4][4];
     keySche(4,key,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10);
@@ -51,6 +56,11 @@ void cipher(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
     shiftR(4,text);
     addRoundkey(4,text,R10);
 }
+/** @brief function invCypher which decrypt the data
+ ** @param dim size of Matrix
+ *  @param key Matrix which contain the key
+ *  @param text Matrix which contain ciphered data
+ **/
 void invCypher(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
     unsigned char R1[4][4],R2[4][4],R3[4][4],R4[4][4],R5[4][4],R6[4][4],R7[4][4],R8[4][4],R9[4][4],R10[4][4];
     keySche(4,key,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10);
