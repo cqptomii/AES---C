@@ -36,11 +36,11 @@ void subWord(unsigned char vect[]){
 }
 void keySche(int dim,unsigned char K[dim][dim],unsigned char R1[dim][dim],unsigned char R2[dim][dim],unsigned char R3[dim][dim],unsigned char R4[dim][dim],unsigned char R5[dim][dim],unsigned char R6[dim][dim],unsigned char R7[dim][dim],unsigned char R8[dim][dim],unsigned char R9[dim][dim],unsigned char R10[dim][dim]){
     unsigned char tabKeySche[4][44]={0};
-    int firstColIndex=0,interColIndex=4;
+    int rotConIndex=0,interColIndex=5;
     unsigned char rotCon[10]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0x1B,0x36};
     initKeySche(4,44,tabKeySche,K);
     for( int i=0;i<10;i++){
-        getFirstCol(&firstColIndex,4,44,rotCon,tabKeySche);
+        getFirstCol(&rotConIndex,4,44,rotCon,tabKeySche);
         getInterCol(4,44,tabKeySche,&interColIndex);
     }
     for(int i=0;i<dim;i++){
@@ -61,28 +61,30 @@ void keySche(int dim,unsigned char K[dim][dim],unsigned char R1[dim][dim],unsign
 void getInterCol(int dim1,int dim2,unsigned char tabKeySch[dim1][dim2],int *index){
     for(int i=0;i<3;i++){
         for(int j=0;j<dim1;j++){
-            tabKeySch[j][*index] = tabKeySch[i][*index-1] ^ tabKeySch[i][*index-4];
+            tabKeySch[j][*index] = tabKeySch[j][*index-1] ^ tabKeySch[j][*index-4];
         }
         *index+=1;
     }
-    *index+=2;
+    *index+=1;
 }
 void getFirstCol(int *index,int dim1,int dim2,const unsigned char rotCon[],unsigned char tabKeySch[dim1][dim2]){
-    int rdKeyIndex= *index *4,rdKeyWordIndex= (*index * 4) + 3,targetIndex=*index * 4 + 4;
-    unsigned char rSubWord[4];
+    int targetIndex=*index * 4 + 4;
+    int rotConIndex=targetIndex-1;
+    int addIndex=targetIndex-4;
+    unsigned char keySubWord[4];
 
     for(int j=0;j<dim1;j++){
-        rSubWord[j]=tabKeySch[j][rdKeyWordIndex];
+        keySubWord[j]=tabKeySch[j][rotConIndex];
     }
-    rotWord(rSubWord);
-    subWord(rSubWord);
+    rotWord(keySubWord);
+    subWord(keySubWord);
 
     for(int i=0;i<dim1;i++){
         if(!i){
-            tabKeySch[i][targetIndex]= tabKeySch[i][rdKeyIndex] ^ rSubWord[i] ^ rotCon[*index];
+            tabKeySch[i][targetIndex]= tabKeySch[i][addIndex] ^ keySubWord[i] ^ rotCon[*index];
         }
         else{
-            tabKeySch[i][targetIndex]= tabKeySch[i][rdKeyIndex] ^ rSubWord[i];
+            tabKeySch[i][targetIndex]= tabKeySch[i][addIndex] ^ keySubWord[i];
         }
     }
     *index+=1;
@@ -94,10 +96,10 @@ void initKeySche(int dim1,int dim2,unsigned char tabKeySche[dim1][dim2],unsigned
         }
     }
 }
-void addRoundkey(int dim,unsigned char chiffre[dim][dim],unsigned char mat2[dim][dim]){
+void addRoundkey(int dim,unsigned char chiffre[dim][dim],unsigned char roundKey[dim][dim]){
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
-            chiffre[i][j] = chiffre[i][j] ^ mat2[i][j];
+            chiffre[i][j] = chiffre[i][j] ^ roundKey[i][j];
         }
     }
 }

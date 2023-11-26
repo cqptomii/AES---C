@@ -10,5 +10,5 @@ void keySche(int dim,unsigned char K[dim][dim],unsigned char R1[dim][dim],unsign
 void initKeySche(int dim1,int dim2,unsigned char tabKeySche[dim1][dim2],unsigned char K[dim1][dim1]);
 void getFirstCol(int *index,int dim1,int dim2,const unsigned char rotCon[],unsigned char tabKeySch[dim1][dim2]);
 void getInterCol(int dim1,int dim2,unsigned char tabKeySch[dim1][dim2],int *index);
-void addRoundkey(int dim,unsigned char chiffre[dim][dim],unsigned char mat2[dim][dim]);
+void addRoundkey(int dim,unsigned char chiffre[dim][dim],unsigned char roundKey[dim][dim]);
 #endif //AES_KEYSCHEDULE_H
