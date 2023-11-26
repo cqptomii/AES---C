@@ -2,7 +2,6 @@
 // Created by tomfr on 15/09/2023.
 //
 #include "keySchedule.h"
-#include "CorpsFini.h"
 void rotWord(unsigned char vect[]){
     unsigned char recup= vect[0];
     vect[0]=vect[1];

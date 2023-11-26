@@ -9,6 +9,31 @@ int main() {
                             0x2,0x3,0x2,0x5,
                             0x1,0x1,0x1,0x1,
                             0x1,0x1,0x1,0x1,};
-    printf("%d",0x00);
+    unsigned char key[4][4]= {0x02,0x23,0x21,0x45,
+                              0x02,0x23,0x21,0x45,
+                              0x02,0x23,0x21,0x45,
+                              0x02,0x23,0x21,0x45};
+    for(int i=0;i<4;i++){
+        for(int k=0;k<4;k++){
+            printf("%d /",tab[i][k]);
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+    cipher(4,key,tab);
+    for(int i=0;i<4;i++){
+        for(int k=0;k<4;k++){
+            printf("%d /",tab[i][k]);
+        }
+        printf("\n");
+    }
+    printf("\n\n");
+    invCypher(4,key,tab);
+    for(int i=0;i<4;i++){
+        for(int k=0;k<4;k++){
+            printf("%d /",tab[i][k]);
+        }
+        printf("\n");
+    }
     return 0;
 }
