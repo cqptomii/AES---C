@@ -12,5 +12,5 @@
 bool generateKey();
 bool keyRecuperation(int dim,unsigned char key[dim][dim]);
 void matrixFill(int dim,unsigned char text[dim][dim],const char str[MAX_STRING_LENGTH]);
-
+int hubAlgorithm();
 #endif //AES_KEYGENERATE_H

@@ -67,6 +67,15 @@ void matrixFill(int dim,unsigned char text[dim][dim],const char str[MAX_STRING_L
     }
 }
 /** @brief function hubAlgorithm show the hub menu of encryption algorithm
- * 
  */
-void hubAlgorithm();
+int hubAlgorithm(){
+    printf("---- Hub menu of AES-128 algorithm ----\n");
+    printf(" 0 - Quit \n");
+    printf(" 1 - Encrypt Data \n");
+    printf(" 2 - Decrypt Data \n\n");
+    int response;
+    printf(" Enter number: ");
+    scanf("%d",&response);
+    fflush(stdin);
+    return response;
+}
