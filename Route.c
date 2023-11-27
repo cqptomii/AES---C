@@ -10,6 +10,7 @@
  ** @param dim size of Matrix
  *  @param key Matrix which contain the key
  *  @param text Matrix which contain clear data
+ *  @return
  **/
 void AES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
     unsigned char R1[4][4],R2[4][4],R3[4][4],R4[4][4],R5[4][4],R6[4][4],R7[4][4],R8[4][4],R9[4][4],R10[4][4];
@@ -60,6 +61,7 @@ void AES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
  ** @param dim size of Matrix
  *  @param key Matrix which contain the key
  *  @param text Matrix which contain ciphered data
+ *  @return
  **/
 void invAES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]){
     unsigned char R1[4][4],R2[4][4],R3[4][4],R4[4][4],R5[4][4],R6[4][4],R7[4][4],R8[4][4],R9[4][4],R10[4][4];

@@ -1,18 +1,23 @@
-#include <stdio.h>
-#include "CorpsFini.h"
-#include "mixColum.h"
 #include "Route.h"
-#include "keySchedule.h"
-#include "ShiftRows.h"
+#include <stdio.h>
+#define MATRIX_DIMENSION 4
 int main() {
-    unsigned char tab[4][4]={0x1,0x1,0x1,0x1,
-                            0x2,0x3,0x2,0x5,
+    unsigned char tab[4][4]={'t','o','u','t',
+                            'e','t',0x2,0x5,
                             0x1,0x1,0x1,0x1,
                             0x1,0x1,0x1,0x1,};
     unsigned char key[4][4]= {0x02,0x23,0x21,0x45,
                               0x02,0x23,0x21,0x45,
                               0x02,0x23,0x21,0x45,
                               0x02,0x23,0x21,0x45};
+    printf("key : \n");
+    for(int i=0;i<4;i++){
+        for(int k=0;k<4;k++){
+            printf("%d /",key[i][k]);
+        }
+        printf("\n");
+    }
+    printf("\n");
     for(int i=0;i<4;i++){
         for(int k=0;k<4;k++){
             printf("%d /",tab[i][k]);
@@ -20,7 +25,8 @@ int main() {
         printf("\n");
     }
     printf("\n\n");
-    cipher(4,key,tab);
+    AES_128(4,key,tab);
+    printf("ciphered Data \n");
     for(int i=0;i<4;i++){
         for(int k=0;k<4;k++){
             printf("%d /",tab[i][k]);
@@ -28,7 +34,8 @@ int main() {
         printf("\n");
     }
     printf("\n\n");
-    invCypher(4,key,tab);
+    invAES_128(4,key,tab);
+    printf("inverse \n");
     for(int i=0;i<4;i++){
         for(int k=0;k<4;k++){
             printf("%d /",tab[i][k]);
