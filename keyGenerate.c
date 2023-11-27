@@ -23,7 +23,7 @@ bool generateKey(){
         srand(time(NULL));
 
         while(i<MAX_STRING_LENGTH){
-            keyElement=(char) (rand() % 127 + 33);
+            keyElement=(char) (rand() % 94 + 33);
             fprintf(keyFile,"%c",keyElement);
             ++i;
         }
@@ -35,16 +35,16 @@ bool generateKey(){
  *  @param dim key Matrix dimension
  **/
 bool keyRecuperation(int dim,unsigned char key[dim][dim]){
-    char keyPath[MAX_LENGTH_KEYPATH];
+    char keyTempPath[MAX_LENGTH_KEYPATH];
     char cle[MAX_STRING_LENGTH];
     FILE *keyFile=NULL;
     printf("---- Key recuperation ---- \n\n");
     printf("Enter key Path : ");
-    scanf("%s",keyPath);
+    scanf("%s",keyTempPath);
     fflush(stdin);
-    keyFile= fopen(keyPath,"r");
+    keyFile= fopen(keyTempPath,"r");
     if(keyFile){
-        fgets(cle,MAX_STRING_LENGTH,keyFile);
+        fgets(cle,MAX_LENGTH_KEYPATH,keyFile);
         matrixFill(4,key,cle);
         return true;
     }
@@ -72,7 +72,8 @@ int hubAlgorithm(){
     printf("---- Hub menu of AES-128 algorithm ----\n");
     printf(" 0 - Quit \n");
     printf(" 1 - Encrypt Data \n");
-    printf(" 2 - Decrypt Data \n\n");
+    printf(" 2 - Decrypt Data \n");
+    printf(" 3 - Generate key \n\n");
     int response;
     printf(" Enter number: ");
     scanf("%d",&response);

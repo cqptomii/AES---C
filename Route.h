@@ -4,6 +4,6 @@
 
 #ifndef AES_ROUTE_H
 #define AES_ROUTE_H
-void cipher(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]);
-void invCypher(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]);
+void AES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]);
+void invAES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]);
 #endif //AES_ROUTE_H
