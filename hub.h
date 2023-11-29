@@ -8,5 +8,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <ctype.h>
-void show_menu();
+#include <stdlib.h>
+int show_menu();
+int show_menu2(int mode);
 #endif //AES_HUB_H

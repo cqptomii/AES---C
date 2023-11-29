@@ -1,32 +1,52 @@
 #include "Route.h"
 #include "hub.h"
+#include "file.h"
 #define MATRIX_DIMENSION 4
 int main() {
     _setmode(_fileno(stdout), 0x00020000);
-    int response=0;char quit_response;
+    int mode=0,type=0;char quit_response;
     bool quit=false;
     while(!quit) {
-
-        show_menu();
-        scanf("%1d",&response);
-        fflush(stdin);
-        while(response<0 || response>2){
-            show_menu();
-        }
-        if(response==0){
+        mode=show_menu();
+        if(mode==0){
             return 0;
         }
         else{
-            if(response==1){
-
+            if(mode==1){
+                type=show_menu2(mode);
+                if(!type){
+                    return 0;
+                }
+                else {
+                    if (type == 1) {
+                        encrypt_file();
+                    }
+                    else {
+                        if (type == 2) {
+                            encrypt_stdin();
+                        }
+                    }
+                }
             }
             else{
-                if(response==2){
-
+                if(mode==2){
+                    type=show_menu2(mode);
+                    if(!type){
+                        return 0;
+                    }
+                    else {
+                        if (type == 1) {
+                            decrypt_file();
+                        }
+                        else {
+                            if (type == 2) {
+                                decrypt_stdin();
+                            }
+                        }
+                    }
                 }
             }
         }
-
         printf("Would you close the program ?  (Y/N)\n");
         scanf("%1c",&quit_response);
         fflush(stdin);
