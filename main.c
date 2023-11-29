@@ -1,7 +1,48 @@
 #include "Route.h"
-#include <stdio.h>
+#include "hub.h"
 #define MATRIX_DIMENSION 4
 int main() {
+    _setmode(_fileno(stdout), 0x00020000);
+    int response=0;char quit_response;
+    bool quit=false;
+    while(!quit) {
+
+        show_menu();
+        scanf("%1d",&response);
+        fflush(stdin);
+        while(response<0 || response>2){
+            show_menu();
+        }
+        if(response==0){
+            return 0;
+        }
+        else{
+            if(response==1){
+
+            }
+            else{
+                if(response==2){
+
+                }
+            }
+        }
+
+        printf("Would you close the program ?  (Y/N)\n");
+        scanf("%1c",&quit_response);
+        fflush(stdin);
+        while(tolower(quit_response)!='n' && tolower(quit_response)!='y'){
+            printf("Would you close the program ?  (Y/N)\n");
+            scanf("%1c",&quit_response);
+        }
+        if(quit_response=='y'){
+            quit=true;
+        }
+    }
+
+
+
+
+    /*
     unsigned char tab[4][4]={'t','o','u','t',
                             'e','t',0x2,0x5,
                             0x1,0x1,0x1,0x1,
@@ -42,5 +83,6 @@ int main() {
         }
         printf("\n");
     }
+     */
     return 0;
 }
