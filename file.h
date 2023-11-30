@@ -16,8 +16,7 @@
 #define MAX_LENGTH_KEYPATH 1024
 bool encrypt_file();
 bool decrypt_file();
-void encrypt_stdin();
-void decrypt_stdin();
+bool encrypt_stdin();
 bool readInFile(FILE *file,char *get_data,int indexFile);
 bool readCiphered(FILE *file,char get_data[16],int indexFile);
 void writeInFile(FILE *file,int dim,unsigned char data_write[dim][dim]);

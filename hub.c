@@ -34,36 +34,40 @@ int show_menu2(int mode){
         wprintf(L"  |    2- Encrypt stdin                   |  \n");
         wprintf(L"  |    0- Quitter                         |  \n");
         wprintf(L"  └───────────────────────────────────────┘  \n \n");
-    }
-    else{
-        wprintf(L"  ┌───────────────────────────────────────┐  \n");
-        wprintf(L"  |           AES-128 Algorithm           |  \n");
-        wprintf(L"  |    1- Decrypt file.txt                |  \n");
-        wprintf(L"  |    2- Decrypt stdin                   |  \n");
-        wprintf(L"  |    0- Quitter                         |  \n");
-        wprintf(L"  └───────────────────────────────────────┘  \n \n");
-    }
-    scanf("%1d",&type);
-    fflush(stdin);
-    while(type<0 || type>2){
-        system("cls");
-        if(mode==1){
+        scanf("%1d",&type);
+        fflush(stdin);
+        while(type<0 || type>2){
+            system("cls");
             wprintf(L"  ┌───────────────────────────────────────┐  \n");
             wprintf(L"  |           AES-128 Algorithm           |  \n");
             wprintf(L"  |    1- Encrypt file.txt                |  \n");
             wprintf(L"  |    2- Encrypt stdin                   |  \n");
             wprintf(L"  |    0- Quitter                         |  \n");
             wprintf(L"  └───────────────────────────────────────┘  \n \n");
+            scanf("%1d",&type);
+            fflush(stdin);
         }
-        else{
+        return type;
+    }
+    else{
+        wprintf(L"  ┌───────────────────────────────────────┐  \n");
+        wprintf(L"  |           AES-128 Algorithm           |  \n");
+        wprintf(L"  |    1- Decrypt file.txt                |  \n");
+        wprintf(L"  |    0- Quitter                         |  \n");
+        wprintf(L"  └───────────────────────────────────────┘  \n \n");
+        scanf("%1d",&type);
+        fflush(stdin);
+        while(type<0 || type>1){
+            system("cls");
             wprintf(L"  ┌───────────────────────────────────────┐  \n");
             wprintf(L"  |           AES-128 Algorithm           |  \n");
             wprintf(L"  |    1- Decrypt file.txt                |  \n");
-            wprintf(L"  |    2- Decrypt stdin                   |  \n");
             wprintf(L"  |    0- Quitter                         |  \n");
             wprintf(L"  └───────────────────────────────────────┘  \n \n");
+            scanf("%1d",&type);
+            fflush(stdin);
         }
-        scanf("%1d",&type);
-        fflush(stdin);
+        return type;
     }
+
 }

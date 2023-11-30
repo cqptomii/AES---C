@@ -6,37 +6,44 @@ bool encrypt_file(){
     // obtention of the key
     unsigned char key[4][4];
     unsigned char text[4][4];
-    keyRecuperation(4,key);
-    // obetention of the clear text
-    char file_path[MAX_LENGTH_KEYPATH];
-    char file_name[31];
-    wprintf(L"Enter the name and the path of the file which would be ciphered : \n");
-    wprintf(L"name : "); scanf("%20s",file_name);wprintf(L"\n");
-    wprintf(L"path : "); scanf("%s",file_path);
-    fflush(stdin);
-    system("cls");
-    strcat(file_name,"_crypt.txt");
-    // Files opening
-    FILE *read_file= fopen(file_path,"r");
-    FILE *write_file= fopen(file_name,"a+");
-    int read_index=0;
-    if(read_file!=NULL && write_file!=NULL){
-        // ciphering + writing
-        char *clear_text= malloc(sizeof(char )*16);
-        while(readInFile(read_file,clear_text,read_index)==true){
-            matrixFill(4,text,clear_text);
-            AES_128(4,key,text);
-            writeInFile(write_file,4,text);
-            ++read_index;
-        }
-        fclose(read_file);
-        fclose(write_file);
-        remove(file_path); // Suppression of clear text
-        free(clear_text);
+    if(keyRecuperation(4,key)) {
+        // obetention of the clear text
+        char file_path[MAX_LENGTH_KEYPATH];
+        char file_name[31];
+        wprintf(L"Enter the name and the path of the file which would be ciphered : \n");
+        wprintf(L"name : ");
+        scanf("%20s", file_name);
+        wprintf(L"\n");
+        wprintf(L"path : ");
+        scanf("%s", file_path);
+        fflush(stdin);
+        system("cls");
+        strcat(file_name, "_crypt.txt");
+        // Files opening
+        FILE *read_file = fopen(file_path, "r");
+        FILE *write_file = fopen(file_name, "a+");
+        int read_index = 0;
+        if (read_file != NULL && write_file != NULL) {
+            // ciphering + writing
+            char *clear_text = malloc(sizeof(char) * 16);
+            while (readInFile(read_file, clear_text, read_index) == true) {
+                matrixFill(4, text, clear_text);
+                AES_128(4, key, text);
+                writeInFile(write_file, 4, text);
+                ++read_index;
+            }
+            fclose(read_file);
+            fclose(write_file);
+            remove(file_path); // Suppression of clear text
+            free(clear_text);
 
-        return true;
-    } else{
-        wprintf(L"Error during files opening \n");
+            return true;
+        } else {
+            wprintf(L"Error during files opening \n");
+            return false;
+        }
+    }else{
+        wprintf(L"Error during key opening \n");
         return false;
     }
 
@@ -45,42 +52,104 @@ bool decrypt_file(){
     unsigned char key[4][4];
     unsigned char text[4][4];
     char file_path[MAX_LENGTH_KEYPATH];
-    keyRecuperation(4,key);
-    wprintf(L"Enter the path of the file which would be decrypted : \n");
-    wprintf(L"path : "); scanf("%s",file_path);
-    fflush(stdin);
-    system("cls");
-    // Files opening
-    FILE *read_file= fopen(file_path,"r");
-    int read_index=0;
-    if(read_file){
-        char *ciphered_text= malloc(sizeof(char )*16);
-        while (readCiphered(read_file,ciphered_text,read_index)){
-            matrixFill(4,text,ciphered_text);
-            invAES_128(4,key,text);
-            for(int i=0;i<4;i++){
-                for(int k=0;k<4;k++){
-                    wprintf(L"%c",text[i][k]);
+    if(keyRecuperation(4,key)) {
+        wprintf(L"Enter the path of the file which would be decrypted : \n");
+        wprintf(L"path : ");
+        scanf("%s", file_path);
+        fflush(stdin);
+        system("cls");
+        // Files opening
+        FILE *read_file = fopen(file_path, "r");
+        int read_index = 0;
+        if (read_file) {
+            char *ciphered_text = malloc(sizeof(char) * 16);
+            while (readCiphered(read_file, ciphered_text, read_index)) {
+                matrixFill(4, text, ciphered_text);
+                invAES_128(4, key, text);
+                for (int i = 0; i < 4; i++) {
+                    for (int k = 0; k < 4; k++) {
+                        wprintf(L"%c", text[i][k]);
+                    }
                 }
+                wprintf(L"\n");
+                ++read_index;
             }
-            wprintf(L"\n");
-            ++read_index;
+            fclose(read_file);
+            free(ciphered_text);
+            return true;
+        } else {
+            wprintf(L"Error during files opening \n");
+            return false;
         }
-        fclose(read_file);
-        free(ciphered_text);
     }
     else{
+        wprintf(L"Error during key opening \n");
         return false;
     }
 }
-void encrypt_stdin(){
+bool encrypt_stdin(){
     unsigned char key[4][4];
-    keyRecuperation(4,key);
+    unsigned char text[4][4];
+    if(keyRecuperation(4,key)){
+        char topic[10];
+        int length=0;
+        wprintf(L"  Enter the topic show on ciphered file : ");
+        scanf("%10s",topic);
+        fflush(stdin);
+        wprintf(L"  Enter length of your text encrypted : ");
+        scanf("%d",&length);
+        fflush(stdin);
+        char *clear_text=(char*) malloc(sizeof(char )*length);
+        wprintf(L"  Enter your text : \n");
+        scanf("%s",clear_text);
+        fflush(stdin);
 
-}
-void decrypt_stdin(){
-    unsigned char key[4][4];
-    keyRecuperation(4,key);
+        char filename[20];
+        strcat(filename,topic);
+        strcat(filename,"_crypt.txt");
+        FILE *write_data= fopen(filename,"a+");
+        if(write_data){
+            int read_index=0;
+            while(read_index<length){
+                // fill the matrix text
+                for(int i=0;i< 4;i++){
+                    for(int j=0;j<4;j++){
+                        text[i][j]=clear_text[read_index];
+                        read_index++;
+                    }
+                }
+                AES_128(4,key,text);
+                writeInFile(write_data,4,text);
+            }
+            //key save
+            char key_name[18];
+            strcat(key_name,"key_");
+            strcat(key_name,topic);
+            strcat(key_name,".txt");
+            FILE *write_key= fopen(key_name,"w");
+            if(write_key){
+                for(int i=0;i<4;i++){
+                    for(int k=0;k<4;k++){
+                        fprintf(write_key,"%c",key[i][k]);
+                    }
+                }
+                fclose(write_key);
+            }
+            else{
+                wprintf(L"Cannot save the key into a new file \n");
+                return false;
+            }
+            fclose(write_data);
+            return true;
+        }
+        else{
+            wprintf(L"Error during file opening \n");
+            return false;
+        }
+    }
+    else{
+        wprintf(L"Error during key recuperation \n");
+    }
 
 }
 /** @brief function readInFile read 16 caracs in the file

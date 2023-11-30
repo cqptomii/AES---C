@@ -19,11 +19,15 @@ int main() {
                 }
                 else {
                     if (type == 1) {
-                        encrypt_file();
+                        if(!encrypt_file()){
+                            wprintf(L"encryption failed \n");
+                        }
                     }
                     else {
                         if (type == 2) {
-                            encrypt_stdin();
+                            if(!encrypt_stdin()){
+                                wprintf(L"encryption failed \n");
+                            }
                         }
                     }
                 }
@@ -36,11 +40,8 @@ int main() {
                     }
                     else {
                         if (type == 1) {
-                            decrypt_file();
-                        }
-                        else {
-                            if (type == 2) {
-                                decrypt_stdin();
+                            if(!decrypt_file()){
+                                wprintf(L"decryption failed \n");
                             }
                         }
                     }
