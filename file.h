@@ -7,6 +7,16 @@
 #include "file.h"
 #include "Route.h"
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <ctype.h>
+#define MAX_STRING_LENGTH 16
+#define MAX_LENGTH_KEYPATH 1024
 bool encrypt_file();
 bool decrypt_file();
+void encrypt_stdin();
+void decrypt_stdin();
+bool generateKey();
+bool keyRecuperation(int dim,unsigned char key[dim][dim]);
 #endif //AES_FILE_H

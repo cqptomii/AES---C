@@ -108,3 +108,18 @@ void invAES_128(int dim,unsigned char key[dim][dim],unsigned char text[dim][dim]
     }
     addRoundkey(4,text,key);
 }
+/** @brief function MatrixFill fill Matrix 4x4 with Hexadecimal values
+ *  @param text Matrix using in AES algo
+ *  @param dim text Matrix dimension
+ *  @param str string read recup in a file
+ *  @return
+ **/
+void matrixFill(int dim,unsigned char text[dim][dim],const char str[16]){
+    int index=0;
+    for(int i=0;i< 4;i++){
+        for(int j=0;j<4;j++){
+            text[i][j]=str[index];
+            index++;
+        }
+    }
+}

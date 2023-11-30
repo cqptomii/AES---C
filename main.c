@@ -47,11 +47,11 @@ int main() {
                 }
             }
         }
-        printf("Would you close the program ?  (Y/N)\n");
+        wprintf(L"Would you close the program ?  (Y/N)\n");
         scanf("%1c",&quit_response);
         fflush(stdin);
         while(tolower(quit_response)!='n' && tolower(quit_response)!='y'){
-            printf("Would you close the program ?  (Y/N)\n");
+            wprintf(L"Would you close the program ?  (Y/N)\n");
             scanf("%1c",&quit_response);
         }
         if(quit_response=='y'){
