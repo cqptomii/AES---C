@@ -46,6 +46,9 @@ int main() {
                         }
                     }
                 }
+                else{
+                    generateKey();
+                }
             }
         }
         wprintf(L"Would you close the program ?  (Y/N)\n");

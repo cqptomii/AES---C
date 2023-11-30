@@ -2,6 +2,9 @@
 // Created by tomfr on 26/11/2023.
 //
 #include "file.h"
+/** @brief function encrypt_file encrypt a file
+ *  @return true if encryption succes,else false
+ **/
 bool encrypt_file(){
     // obtention of the key
     unsigned char key[4][4];
@@ -48,6 +51,9 @@ bool encrypt_file(){
     }
 
 }
+/** @brief function decrypt_file decrypt a file
+ *  @return true if decryption succes,else false
+ **/
 bool decrypt_file(){
     unsigned char key[4][4];
     unsigned char text[4][4];
@@ -87,6 +93,9 @@ bool decrypt_file(){
         return false;
     }
 }
+/** @brief function encrypt_stdin encrypt enter of the user into a file
+ *  @return true if encryption succes,else false
+ **/
 bool encrypt_stdin(){
     unsigned char key[4][4];
     unsigned char text[4][4];
@@ -167,7 +176,7 @@ bool readInFile(FILE *file,char *get_data,int indexFile){
     }
 
 }
-/** @brief function readInFile read 32 caracs in the file and convert hexa in charac value
+/** @brief function readCiphered read 16 numbers in the file and convert these numbers into character
  *  @param file contained file opened
  *  @param getData array which contained 16 caracs
  *  @param indexFile index know are we in the file
@@ -194,7 +203,12 @@ bool readCiphered(FILE *file,char get_data[16],int indexFile){
         return false;
     }
 }
-
+/** @brief function writeInFile write ciphered text in a File.txt
+ *  @param file contained file opened
+ *  @param dim Matrix dimension
+ *  @param data_write array which contain ciphered data
+ *  @return
+ **/
 void writeInFile(FILE *file,int dim,unsigned char data_write[dim][dim]){
     for(int i=0;i<4;i++){
         for(int k=0;k<4;k++){
