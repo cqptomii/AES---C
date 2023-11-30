@@ -54,7 +54,7 @@ int main() {
             wprintf(L"Would you close the program ?  (Y/N)\n");
             scanf("%1c",&quit_response);
         }
-        if(quit_response=='y'){
+        if(tolower(quit_response)=='y'){
             quit=true;
         }
     }
